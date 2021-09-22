@@ -12,6 +12,8 @@ db.createCollection('himalayas')
    db.mountains.insert({name: 'Dhauldhar range', height: '4000 mtrs'})
 
 - insert multiple document using insertMany command
+
+   
   
 - find all documents from mountains
 db.mountains.find()
