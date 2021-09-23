@@ -59,6 +59,7 @@ Export `users` collection from `test` database onto `Desktop` in a file named `e
 
 ```
 mongoimport -d DB_NAME -c COLLECTION_NAME --type csv --file elections.csv(file location) --headerline(including header)
+db.users.find({name : /ri/i}).pretty()
 ```
 
 ## BLOCK-writeCode
