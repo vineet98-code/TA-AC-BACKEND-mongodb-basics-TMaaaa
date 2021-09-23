@@ -23,15 +23,17 @@ Write code to execute below expressions.
 // An article should look like in the database
 {
   _id: 'some_random_id',
-  title: '',
-  details: '',
+  title: 'The Blonde Salad',
+  details: 'fashion and Blonde salad',
   author: {
-    name: '',
-    email: '',
-    age: ''
+    name: 'Chiara Ferrangi',
+    email: 'Chiara12@gmail.com',
+    age: '34'
   },
-  tags: ['js', 'mongo']
-}
+  tags: ['fashion', 'mongo']
+},
+
+
 ```
 db.articles.insertMany({_id: 'some_random_id',
   title: '',
@@ -42,25 +44,48 @@ db.articles.insertMany({_id: 'some_random_id',
     age: ''
   },
   tags: ['js', 'mongo']})
-  
+
 4. Find all the articles using `db.COLLECTION_NAME.find()`
+   db.blog.find().pretty()
+
 5. Find a document using \_id field.
+   db.blog.findOne({_id : ObjectId("614c99e35426159fa43454e9")}).pretty()
+
 6. 1. Find documents using title
+   db.blog.findOne({title : The Blonde Salad}).pretty()
+
 7. 2. Find documents using author's name field.
+   db.blog.findOne({"author.name" : 'Chiara Ferrangi'})
+   db.blog.update({}, {$rename : {title : "vinee"} })
+
 8. Find document using a specific tag.
+   db.blog.find({tags : {$nin: ["javascript", "TT"]}}).pretty()  
 
 9. Update title of a document using its \_id field.
+   db.blog.update({ "_id" : ObjectId("614c99e35426159fa43454e9")},
+    {$set : {title : "doing"}})
+
 10. Update a author's name using article's title.
+    
+    db.blog.update({ "title" : 'Boderland Beat '}, {$set : {"author.name" : "carlotta"}})
+
 11. rename details field to description from all articles in articles collection.
+    
 12. Add additional tag in a specific document.
+    
+    db.blog.update({ title : "Boderland Beat "}, {$push: {tags: "mongo"}})
 
 13. Update an article's title using $set and without $set.
 
 - Write the differences here ?
 
 13. find an article using title and increment it's auhtor's age by 5.
+    
+    db.blog.update({ title: "Boderland Beat "}, {$inc : {"author.age" : 5 }})
 
 14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.
+
+   db.blog.remove({"_id" : ObjectId("614c9eee03f4703695d67c0f")})
 
 // Sample data
 
@@ -179,6 +204,13 @@ db.users.insertMany([
 Insert above data into database to perform below queries:-
 
 - Find all males who play cricket.
+  db.users.find({gender: "Male", sports: "criket"})
+
 - Update user with extra golf field in sports array whose name is "Steve Ortega".
+  db.users.update({name : 'Steve Ortega'}, {$push : {sports : "golf"}}).pretty()
+
 - Find all users who play either 'football' or 'cricket'.
+db.users.find({$or: [{sports : 'football'}, {sports:  'cricket'}]}).pretty()
+
 - Find all users whose name includes 'ri' in their name.
+db.users.find({name : /ri/i}).pretty()
